@@ -23,16 +23,16 @@ def validateTag(tag):
 
 def getFirstLink(wikipage):
     page = requests.get(prefix+wikipage)
-    soup = BeautifulSoup(page.text)
+    soup = BeautifulSoup(page.text, "html.parser")
     soup = soup.find(class_="mw-parser-output")
     for paragraph in soup.find_all(validateTag, recursive=False):
         for link in paragraph.find_all("a"):
             ref = link.get("href")
-            # if isValid(str(ref),str(paragraph)):
-            return ref
+            if isValid(str(ref),str(paragraph)):
+                return ref
     return False
 
-wikipage = "/wiki/Python_(programming_language)"
+wikipage = "/wiki/Wikipedia:Getting_to_Philosophy"
 target = "/wiki/Philosophy"
 counter = 0
 
@@ -41,5 +41,3 @@ while wikipage != target:
     wikipage = getFirstLink(wikipage)
     counter += 1
     print("{}: {} -> {}".format(counter, old, wikipage))
-
-print(wikipage)
