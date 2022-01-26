@@ -12,5 +12,5 @@ pip install -r requirements.txt
 
 ## Running
 ```bash
-python crawl.py
+python crawl.py [wikipage]
 ```

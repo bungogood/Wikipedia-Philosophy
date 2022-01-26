@@ -1,7 +1,9 @@
-import requests
 from bs4 import BeautifulSoup
+import requests
+import sys
 
 prefix = "https://en.wikipedia.org"
+target = "/wiki/Philosophy"
 
 def isValid(ref,paragraph):
     if not ref or "#" in ref or "//" in ref or ":" in ref:
@@ -29,12 +31,19 @@ def getFirstLink(wikipage):
                 return ref
     return False
 
-wikipage = "/wiki/Python_(programming_language)"
-target = "/wiki/Philosophy"
-counter = 0
+def crawl(wikipage, debug=True):
+    counter = 0
+    while wikipage != target:
+        old = wikipage
+        wikipage = getFirstLink(wikipage)
+        counter += 1
+        if debug:
+            print("{}: {} -> {}".format(counter, old, wikipage))
+    return counter
 
-while wikipage != target:
-    old = wikipage
-    wikipage = getFirstLink(wikipage)
-    counter += 1
-    print("{}: {} -> {}".format(counter, old, wikipage))
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python crawl.py [wikipedia]")
+        sys.exit(0)
+    
+    crawl("/wiki/" + sys.argv[1])
