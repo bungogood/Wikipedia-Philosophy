@@ -16,10 +16,7 @@ def isValid(ref,paragraph):
     return True
 
 def validateTag(tag):
-    name = tag.name
-    isParagraph = name == "p"
-    isList = name == "ul"
-    return isParagraph or isList
+    return tag.name == "p" or tag.name == "ul"
 
 def getFirstLink(wikipage):
     page = requests.get(prefix+wikipage)
@@ -32,7 +29,7 @@ def getFirstLink(wikipage):
                 return ref
     return False
 
-wikipage = "/wiki/Wikipedia:Getting_to_Philosophy"
+wikipage = "/wiki/Python_(programming_language)"
 target = "/wiki/Philosophy"
 counter = 0
 
