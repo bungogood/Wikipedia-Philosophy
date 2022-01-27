@@ -31,7 +31,7 @@ def getFirstLink(wikipage):
                 return ref
     return False
 
-def crawl(wikipage, debug=True):
+def crawl(wikipage, debug=False):
     counter = 0
     while wikipage != target:
         old = wikipage
@@ -46,4 +46,4 @@ if __name__ == "__main__":
         print("Usage: python crawl.py [wikipedia]")
         sys.exit(0)
     
-    crawl("/wiki/" + sys.argv[1])
+    crawl("/wiki/" + sys.argv[1], True)
